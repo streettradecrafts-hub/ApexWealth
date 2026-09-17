@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apex Wealth | Pablo Rindt Private Portfolio ($128,856.00)</title>
+  <meta name="description" content="Private cryptocurrency investment dashboard for Pablo Rindt featuring live real-time BTC and altcoin prices, initial deposit tracking of $40,674, +216.80% net profit, and total valuation of $128,856.00.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Top Navigation Bar -->
+    <header class="header-navbar">
+      <div class="brand-section">
+        <div class="brand-logo-badge" title="Apex Wealth Institutional Portal">
+          ▲
+        </div>
+        <div class="brand-info">
+          <h1>APEX WEALTH <span class="brand-badge">PRIVATE CLIENT</span></h1>
+          <span class="brand-subtitle">Digital Asset Institutional Management</span>
+        </div>
+      </div>
+
+      <div class="market-status-pill" id="marketStatusPill">
+        <span class="pulse-dot"></span>
+        <span id="marketStatusText">Live Feed Connected</span>
+      </div>
+
+      <div class="header-actions">
+        <div class="quick-tools">
+          <button class="tool-btn" id="currencyToggleBtn" title="Change Base Currency">
+            <span>🌐</span> USD ($)
+          </button>
+          <button class="tool-btn" id="privacyBtn" title="Hide/Show Balances">
+            <span id="privacyIcon">👁️</span> <span id="privacyLabel">Privacy</span>
+          </button>
+        </div>
+
+        <!-- User Profile: Pablo Rindt -->
+        <div class="user-profile-badge" id="userProfileBadge" title="Verified Private Investor">
+          <div class="user-avatar" id="userAvatar">PR</div>
+          <div class="user-details">
+            <span class="user-name" id="userNameDisplay">Pablo Rindt 🛡️</span>
+            <span class="user-tier-badge">
+              <span>★</span> Accredited Investor Tier III
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-wrapper">
+
+      <!-- Hero Portfolio Balance Section -->
+      <section class="hero-portfolio-card">
+        <div class="portfolio-header-row">
+          <div class="portfolio-value-group">
+            <div class="portfolio-label">
+              <span>TOTAL PORTFOLIO VALUATION</span>
+              <button class="privacy-toggle" id="heroEyeToggle" title="Toggle Balance Masking">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="main-balance-container">
+              <!-- Exact $128,856.00 Requested Total Asset -->
+              <h2 class="main-balance" id="totalBalanceVal">$128,856.00</h2>
+              
+              <div class="balance-indicators">
+                <div class="pnl-badge positive" id="heroTotalRoi">
+                  <span>▲</span> Net Profit: <strong style="color: #34d399; margin-left: 3px;">+$88,182.00 (+216.80%)</strong>
+                </div>
+                <div class="roi-badge" id="heroInitialDeposit">
+                  Initial Deposit: <strong style="color: #e2e8f0; margin-left: 3px;">$40,674.00</strong>
+                </div>
+                <div class="pnl-badge positive" id="hero24hPnl" style="background: rgba(16, 185, 129, 0.08); font-size: 0.8rem;">
+                  <span>▲</span> +$1,640.20 (+1.29%) <small style="opacity: 0.8; margin-left: 2px;">Today</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Wealth Action Buttons -->
+          <div class="hero-action-buttons">
+            <button class="btn-primary" id="btnOpenDeposit">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Deposit Funds
+            </button>
+            <button class="btn-secondary" id="btnOpenWithdraw">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Withdraw
+            </button>
+            <button class="btn-secondary" id="btnOpenSwap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="17 1 21 5 17 9"></polyline>
+                <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+                <polyline points="7 23 3 19 7 15"></polyline>
+                <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+              </svg>
+              Quick Trade
+            </button>
+            <button class="btn-secondary" id="btnExportPdf" title="Download Portfolio Statement">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Statement
+            </button>
+          </div>
+        </div>
+
+        <!-- Secondary Metrics Grid -->
+        <div class="portfolio-metrics-grid">
+          <div class="metric-item">
+            <span class="metric-header">Initial Capital Invested</span>
+            <span class="metric-value" id="initialDepositVal">$40,674.00</span>
+            <span class="metric-subtext">Verified Deposit Basis</span>
+          </div>
+
+          <div class="metric-item">
+            <span class="metric-header">Cumulative Net Profit</span>
+            <span class="metric-value" id="totalProfitVal" style="color: #34d399;">+$88,182.00</span>
+            <span class="metric-subtext" style="color: #34d399; font-weight: 600;">+216.80% Capital Growth</span>
+          </div>
+
+          <div class="metric-item">
+            <span class="metric-header">Crypto Market Holdings</span>
+            <span class="metric-value" id="cryptoAssetsVal">$119,836.08</span>
+            <span class="metric-subtext">Active Market Exposure (93.0%)</span>
+          </div>
+
+          <div class="metric-item">
+            <span class="metric-header">Cash &amp; USD Reserves</span>
+            <span class="metric-value" id="cashReserveVal">$9,019.92</span>
+            <span class="metric-subtext">USDT &amp; Cash Buffer (7.0%)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Analytics & Performance Section -->
+      <section class="analytics-grid">
+        <!-- Interactive Canvas Chart Card -->
+        <div class="chart-card">
+          <div class="card-header-flex">
+            <div class="card-title-group">
+              <h2>Portfolio Performance</h2>
+              <p>Historical valuation growth track from initial $40,674.00 deposit to $128,856.00 (+216.80%)</p>
+            </div>
+            
+            <div class="timeframe-selector" id="timeframeSelector">
+              <button class="time-btn" data-range="24H">24H</button>
+              <button class="time-btn" data-range="7D">7D</button>
+              <button class="time-btn active" data-range="1M">1M</button>
+              <button class="time-btn" data-range="1Y">1Y</button>
+              <button class="time-btn" data-range="ALL">ALL</button>
+            </div>
+          </div>
+
+          <div class="chart-container" id="chartContainer">
+            <canvas id="performanceChart"></canvas>
+            <div class="chart-tooltip-box" id="chartTooltip">
+              <div class="tooltip-date" id="tooltipDate">--</div>
+              <div class="tooltip-value" id="tooltipVal">--</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Asset Allocation Breakdown -->
+        <div class="allocation-card">
+          <div class="card-title-group">
+            <h2>Asset Allocation</h2>
+            <p>Target balance of $128,856 distributed by asset class</p>
+          </div>
+
+          <div class="allocation-progress-stack" id="allocBar">
+            <div class="progress-segment" style="width: 52%; background: #f7931a;" title="Bitcoin (BTC): 52%"></div>
+            <div class="progress-segment" style="width: 25%; background: #627eea;" title="Ethereum (ETH): 25%"></div>
+            <div class="progress-segment" style="width: 12%; background: #14f195;" title="Solana (SOL): 12%"></div>
+            <div class="progress-segment" style="width: 7%; background: #26a17b;" title="USDT Stablecoin: 7%"></div>
+            <div class="progress-segment" style="width: 4%; background: #a855f7;" title="Altcoins (BNB/ADA/XRP): 4%"></div>
+          </div>
+
+          <div class="allocation-items-list">
+            <div class="allocation-row">
+              <div class="alloc-coin-info">
+                <span class="alloc-color-dot" style="background: #f7931a;"></span>
+                <div>
+                  <div class="alloc-coin-name">Bitcoin (BTC)</div>
+                  <div class="alloc-coin-share">52.0% Allocation</div>
+                </div>
+              </div>
+              <div class="alloc-coin-value" id="allocValBtc">$67,005.12</div>
+            </div>
+
+            <div class="allocation-row">
+              <div class="alloc-coin-info">
+                <span class="alloc-color-dot" style="background: #627eea;"></span>
+                <div>
+                  <div class="alloc-coin-name">Ethereum (ETH)</div>
+                  <div class="alloc-coin-share">25.0% Allocation</div>
+                </div>
+              </div>
+              <div class="alloc-coin-value" id="allocValEth">$32,214.00</div>
+            </div>
+
+            <div class="allocation-row">
+              <div class="alloc-coin-info">
+                <span class="alloc-color-dot" style="background: #14f195;"></span>
+                <div>
+                  <div class="alloc-coin-name">Solana (SOL)</div>
+                  <div class="alloc-coin-share">12.0% Allocation</div>
+                </div>
+              </div>
+              <div class="alloc-coin-value" id="allocValSol">$15,462.72</div>
+            </div>
+
+            <div class="allocation-row">
+              <div class="alloc-coin-info">
+                <span class="alloc-color-dot" style="background: #26a17b;"></span>
+                <div>
+                  <div class="alloc-coin-name">Tether (USDT Reserve)</div>
+                  <div class="alloc-coin-share">7.0% Allocation</div>
+                </div>
+              </div>
+              <div class="alloc-coin-value" id="allocValUsdt">$9,019.92</div>
+            </div>
+
+            <div class="allocation-row">
+              <div class="alloc-coin-info">
+                <span class="alloc-color-dot" style="background: #a855f7;"></span>
+                <div>
+                  <div class="alloc-coin-name">Other Altcoins (BNB/XRP)</div>
+                  <div class="alloc-coin-share">4.0% Allocation</div>
+                </div>
+              </div>
+              <div class="alloc-coin-value" id="allocValAlt">$5,154.24</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bitcoin Spotlight & Top Altcoins Section -->
+      <section class="market-spotlight-section">
+        
+        <!-- Primary BTC Spotlight Card -->
+        <div class="btc-spotlight-card">
+          <div class="btc-watermark">₿</div>
+          <div>
+            <div class="btc-header">
+              <div class="btc-identity">
+                <div class="btc-icon-wrap">₿</div>
+                <div class="btc-names">
+                  <h3>Bitcoin <span class="btc-symbol">BTC/USD</span></h3>
+                  <span style="font-size: 0.72rem; color: #fbbf24;">Live Spot Market API</span>
+                </div>
+              </div>
+              <div class="pnl-badge positive" id="btc24hBadge">
+                <span>▲</span> +1.16%
+              </div>
+            </div>
+
+            <div class="btc-live-price-group">
+              <div class="portfolio-label">CURRENT SPOT PRICE</div>
+              <div class="btc-price-tag" id="btcSpotPrice">
+                $76,560.00
+              </div>
+            </div>
+
+            <div class="btc-stats-grid">
+              <div class="btc-stat-card">
+                <div class="btc-stat-label">24h High</div>
+                <div class="btc-stat-val" id="btc24hHigh">$77,024.00</div>
+              </div>
+              <div class="btc-stat-card">
+                <div class="btc-stat-label">24h Low</div>
+                <div class="btc-stat-val" id="btc24hLow">$75,161.00</div>
+              </div>
+              <div class="btc-stat-card">
+                <div class="btc-stat-label">Market Dominance</div>
+                <div class="btc-stat-val">58.4%</div>
+              </div>
+              <div class="btc-stat-card">
+                <div class="btc-stat-label">24h Volume</div>
+                <div class="btc-stat-val" id="btcVolume">$30.8B</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pablo's BTC Holding Display -->
+          <div class="pablo-btc-holding">
+            <div>
+              <div class="holding-label">Pablo's Bitcoin Holding:</div>
+              <div class="holding-amount" id="pabloBtcUnits">0.87520 BTC</div>
+            </div>
+            <div style="text-align: right;">
+              <div class="holding-label">Holding Value:</div>
+              <div class="holding-amount" id="pabloBtcVal" style="color: #f7931a;">$67,005.12</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Tickers for Top Altcoins -->
+        <div class="altcoins-preview-card">
+          <div class="card-header-flex" style="margin-bottom: 0.5rem;">
+            <div class="card-title-group">
+              <h2>Active Crypto Movers</h2>
+              <p>Real-time updates via public cryptocurrency price feed</p>
+            </div>
+            <span class="roi-badge" id="tickerSyncTimestamp">Synced: Just now</span>
+          </div>
+
+          <div class="quick-tickers-grid" id="quickTickersGrid">
+            <!-- Populated dynamically by app.js -->
+            <div class="ticker-mini-card">
+              <div class="ticker-card-top">
+                <div class="ticker-coin-id">
+                  <div class="user-avatar" style="width: 24px; height: 24px; font-size: 0.6rem;">ETH</div>
+                  <span class="ticker-symbol-text">Ethereum</span>
+                </div>
+                <span class="ticker-change" style="color: #34d399;">+3.00%</span>
+              </div>
+              <div class="ticker-price">$2,460.68</div>
+            </div>
+            <div class="ticker-mini-card">
+              <div class="ticker-card-top">
+                <div class="ticker-coin-id">
+                  <div class="user-avatar" style="width: 24px; height: 24px; font-size: 0.6rem; background: #14f195; color: #000;">SOL</div>
+                  <span class="ticker-symbol-text">Solana</span>
+                </div>
+                <span class="ticker-change" style="color: #34d399;">+3.98%</span>
+              </div>
+              <div class="ticker-price">$100.95</div>
+            </div>
+            <div class="ticker-mini-card">
+              <div class="ticker-card-top">
+                <div class="ticker-coin-id">
+                  <div class="user-avatar" style="width: 24px; height: 24px; font-size: 0.6rem; background: #f0b90b; color: #000;">BNB</div>
+                  <span class="ticker-symbol-text">BNB</span>
+                </div>
+                <span class="ticker-change" style="color: #34d399;">+2.05%</span>
+              </div>
+              <div class="ticker-price">$726.21</div>
+            </div>
+            <div class="ticker-mini-card">
+              <div class="ticker-card-top">
+                <div class="ticker-coin-id">
+                  <div class="user-avatar" style="width: 24px; height: 24px; font-size: 0.6rem; background: #23292f;">XRP</div>
+                  <span class="ticker-symbol-text">Ripple</span>
+                </div>
+                <span class="ticker-change" style="color: #34d399;">+2.80%</span>
+              </div>
+              <div class="ticker-price">$1.30</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Live Cryptocurrency Market Table (CoinGecko Live API) -->
+      <section class="market-table-section">
+        <div class="table-toolbar">
+          <div class="card-title-group">
+            <h2>Cryptocurrency Market Live Feed</h2>
+            <p>Direct API pricing, 24h metrics, and 7-day sparklines</p>
+          </div>
+
+          <div class="table-toolbar" style="margin-bottom: 0; gap: 0.85rem;">
+            <div class="search-input-wrap">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="marketSearchInput" class="table-search-input" placeholder="Search crypto (e.g. BTC, ETH, SOL)...">
+            </div>
+
+            <div class="filter-pills" id="categoryFilterPills">
+              <button class="filter-pill active" data-filter="all">All Cryptos</button>
+              <button class="filter-pill" data-filter="l1">Layer 1</button>
+              <button class="filter-pill" data-filter="defi">DeFi</button>
+              <button class="filter-pill" data-filter="gainers">Top Gainers</button>
+            </div>
+
+            <div class="refresh-status-bar">
+              <span id="autoRefreshCountdown">Auto-sync in 30s</span>
+              <button class="btn-refresh-sm" id="btnManualRefresh" title="Refresh Live Prices Now">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+                </svg>
+                Sync
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="crypto-table-container">
+          <table class="crypto-table" id="cryptoMarketTable">
+            <thead>
+              <tr>
+                <th class="crypto-rank">#</th>
+                <th>Asset</th>
+                <th>Price (USD)</th>
+                <th>24h Change</th>
+                <th>24h High / Low</th>
+                <th>24h Volume</th>
+                <th>Market Cap</th>
+                <th>Last 7 Days</th>
+                <th style="text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="cryptoTableBody">
+              <!-- Rendered dynamically by app.js with live CoinGecko API data -->
+              <tr>
+                <td colspan="9" style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                  Connecting to cryptocurrency live price feed...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Pablo's Detailed Holdings Breakdown -->
+      <section class="portfolio-details-grid">
+        
+        <!-- Pablo's Holdings Breakdown -->
+        <div class="holdings-card">
+          <div class="card-title-group" style="margin-bottom: 1.25rem;">
+            <h2>Pablo Rindt's Asset Holdings</h2>
+            <p>Real-time valuation based on latest spot prices (Total: $128,856.00)</p>
+          </div>
+
+          <div class="crypto-table-container">
+            <table class="crypto-table">
+              <thead>
+                <tr>
+                  <th>Asset</th>
+                  <th>Quantity</th>
+                  <th>Avg Buy Price</th>
+                  <th>Current Value</th>
+                  <th>Unrealized P&amp;L</th>
+                </tr>
+              </thead>
+              <tbody id="holdingsTableBody">
+                <!-- Holdings dynamically injected -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+      <div>
+        <span>Apex Wealth Custody &amp; Clearing Services • Client: <strong>Pablo Rindt</strong></span>
+      </div>
+      <div class="footer-links">
+        <a href="#compliance">Security &amp; Cold Storage</a>
+        <a href="#audit">SOC2 Type II Certified</a>
+        <a href="#api">API Feeds: CoinGecko / Coinbase</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Interactive Modals -->
+
+  <!-- 1. Deposit Funds Modal (Dedicated BTC Address: 1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV) -->
+  <div class="modal-overlay" id="depositModal">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.2rem;">📥</span>
+          <h3>Deposit Digital Assets</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="depositModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="deposit-client-badge">
+          <div class="user-avatar" style="width: 26px; height: 26px; font-size: 0.7rem;">PR</div>
+          <div>
+            <div style="font-weight: 700; font-size: 0.85rem; color: #fff;">Pablo Rindt</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">Verified Tier III Custodial Allocation Vault</div>
+          </div>
+        </div>
+
+        <div class="deposit-network-pill">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="pulse-dot"></span>
+            <span style="font-weight: 700; font-size: 0.8rem; color: #f7931a;">BITCOIN (BTC) NATIVE NETWORK</span>
+          </div>
+          <span class="brand-badge" style="background: rgba(247, 147, 26, 0.15); color: #f7931a; border-color: rgba(247, 147, 26, 0.3);">SegWit / Legacy</span>
+        </div>
+
+        <div class="deposit-address-container">
+          <div class="deposit-address-label">
+            <span>DEDICATED DEPOSIT ADDRESS</span>
+            <span style="color: #10b981; font-size: 0.72rem;">● Active &amp; Verified</span>
+          </div>
+          
+          <div class="deposit-address-box">
+            <code class="deposit-address-text" id="depositAddressText">1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV</code>
+            <button class="btn-copy-address" id="btnCopyDepositAddress" title="Copy Address to Clipboard">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span id="copyBtnLabel">Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="deposit-qr-wrap">
+          <div class="deposit-qr-card">
+            <svg class="qr-svg" viewBox="0 0 100 100" width="100" height="100">
+              <rect width="100" height="100" fill="#ffffff" rx="4"/>
+              <!-- Corner 1 -->
+              <rect x="8" y="8" width="26" height="26" fill="#0b0f19" rx="2"/>
+              <rect x="12" y="12" width="18" height="18" fill="#ffffff"/>
+              <rect x="16" y="16" width="10" height="10" fill="#0b0f19"/>
+              <!-- Corner 2 -->
+              <rect x="66" y="8" width="26" height="26" fill="#0b0f19" rx="2"/>
+              <rect x="70" y="12" width="18" height="18" fill="#ffffff"/>
+              <rect x="74" y="16" width="10" height="10" fill="#0b0f19"/>
+              <!-- Corner 3 -->
+              <rect x="8" y="66" width="26" height="26" fill="#0b0f19" rx="2"/>
+              <rect x="12" y="70" width="18" height="18" fill="#ffffff"/>
+              <rect x="16" y="74" width="10" height="10" fill="#0b0f19"/>
+              <!-- QR Data Matrix -->
+              <rect x="38" y="10" width="5" height="5" fill="#0b0f19"/>
+              <rect x="48" y="10" width="10" height="5" fill="#0b0f19"/>
+              <rect x="38" y="20" width="5" height="15" fill="#0b0f19"/>
+              <rect x="48" y="25" width="10" height="5" fill="#0b0f19"/>
+              <rect x="10" y="40" width="15" height="5" fill="#0b0f19"/>
+              <rect x="30" y="40" width="5" height="5" fill="#0b0f19"/>
+              <rect x="40" y="40" width="20" height="5" fill="#0b0f19"/>
+              <rect x="65" y="40" width="10" height="5" fill="#0b0f19"/>
+              <rect x="80" y="40" width="10" height="5" fill="#0b0f19"/>
+              <rect x="10" y="50" width="5" height="10" fill="#0b0f19"/>
+              <rect x="20" y="55" width="10" height="5" fill="#0b0f19"/>
+              <rect x="35" y="50" width="10" height="10" fill="#0b0f19"/>
+              <rect x="50" y="55" width="15" height="5" fill="#0b0f19"/>
+              <rect x="70" y="50" width="10" height="10" fill="#0b0f19"/>
+              <rect x="85" y="55" width="5" height="5" fill="#0b0f19"/>
+              <rect x="40" y="65" width="15" height="5" fill="#0b0f19"/>
+              <rect x="60" y="65" width="5" height="15" fill="#0b0f19"/>
+              <rect x="70" y="70" width="20" height="5" fill="#0b0f19"/>
+              <rect x="40" y="75" width="5" height="15" fill="#0b0f19"/>
+              <rect x="50" y="80" width="10" height="10" fill="#0b0f19"/>
+              <rect x="65" y="85" width="10" height="5" fill="#0b0f19"/>
+              <rect x="80" y="80" width="10" height="10" fill="#0b0f19"/>
+            </svg>
+          </div>
+          <div class="deposit-instructions">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem;">Custodial Deposit Notice</div>
+            <p style="font-size: 0.74rem; color: var(--text-secondary); line-height: 1.45;">
+              Send Bitcoin (BTC) to this unique address. Capital is credited automatically to <strong>Pablo Rindt</strong>'s valuation balance upon 1 blockchain confirmation.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close-modal="depositModal">Close</button>
+        <button class="btn-primary" id="btnCopyAddressFooter">Copy Address</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Withdraw Funds Modal (Assets Locked Till February 2027) -->
+  <div class="modal-overlay" id="withdrawModal">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span style="font-size: 1.2rem;">🔒</span>
+          <h3>Withdrawal Restricted • Custodial Lock</h3>
+        </div>
+        <button class="modal-close-btn" data-close-modal="withdrawModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <!-- Lock Notice Banner -->
+        <div class="lock-alert-banner">
+          <div class="lock-icon-circle">🔒</div>
+          <div class="lock-alert-content">
+            <h4>Assets Locked Until February 2027</h4>
+            <p>
+              Portfolio capital in account <strong>Pablo Rindt</strong> is locked under an accredited private wealth fixed-term custody agreement. Withdrawals and capital transfers are restricted until <strong>February 2027</strong>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Lock Parameters Card -->
+        <div class="lock-details-card">
+          <div class="lock-detail-row">
+            <span class="lock-detail-label">Beneficiary</span>
+            <span class="lock-detail-value">Pablo Rindt (Accredited Tier III)</span>
+          </div>
+          <div class="lock-detail-row">
+            <span class="lock-detail-label">Total Locked Capital</span>
+            <span class="lock-detail-value" style="color: #34d399; font-weight: 700;">$128,856.00 USD</span>
+          </div>
+          <div class="lock-detail-row">
+            <span class="lock-detail-label">Lock Expiration / Unlock Date</span>
+            <span class="lock-detail-value" style="color: #f59e0b; font-weight: 700;">February 2027</span>
+          </div>
+          <div class="lock-detail-row">
+            <span class="lock-detail-label">Custody Agreement</span>
+            <span class="lock-detail-value">Fixed-Term Private Yield Staking</span>
+          </div>
+          <div class="lock-detail-row">
+            <span class="lock-detail-label">Withdrawal Status</span>
+            <span class="lock-detail-value" style="color: #f43f5e; font-weight: 700;">● Locked / Non-Redeemable</span>
+          </div>
+        </div>
+
+        <div class="lock-policy-note">
+          <span>ℹ️ Early liquidity redemption requires institutional committee clearance and forfeiture of accrued staking yields. Contact your dedicated Apex Wealth private manager for inquiries.</span>
+        </div>
+
+      </div>
+      <div class="modal-footer" style="display: flex; gap: 0.75rem;">
+        <button class="btn-secondary" data-close-modal="withdrawModal" style="flex: 1;">Close</button>
+        <button class="btn-primary" disabled style="opacity: 0.55; cursor: not-allowed; background: #334155; border-color: #475569; flex: 1.5;" title="Withdrawals locked until February 2027">
+          🔒 Locked Until Feb 2027
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Quick Trade / Swap Modal -->
+  <div class="modal-overlay" id="swapModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Institutional Instant Swap</h3>
+        <button class="modal-close-btn" data-close-modal="swapModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <label class="input-label">You Pay (USD Cash Reserve)</label>
+          <input type="number" class="modal-input" id="swapPayInput" value="1000">
+        </div>
+        <div>
+          <label class="input-label">You Receive</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <select class="modal-input" id="swapTargetAsset" style="flex: 1;">
+              <option value="bitcoin">Bitcoin (BTC)</option>
+              <option value="ethereum">Ethereum (ETH)</option>
+              <option value="solana">Solana (SOL)</option>
+              <option value="binancecoin">BNB</option>
+            </select>
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.8rem; border: 1px solid var(--border-subtle);">
+          Estimated Execution: <strong id="swapEstimatedUnits" style="color: #38bdf8;">0.01306 BTC</strong><br>
+          Slippage: <span style="color: #34d399;">0.01% (Zero Fee Private Client Tier)</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close-modal="swapModal">Cancel</button>
+        <button class="btn-primary" id="btnConfirmSwap">Execute Trade</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Message System -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Main JavaScript Application -->
+  <script src="app.js"></script>
+</body>
+</html>
