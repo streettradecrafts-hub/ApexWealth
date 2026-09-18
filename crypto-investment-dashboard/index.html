@@ -485,9 +485,9 @@
 
   <!-- Interactive Modals -->
 
-  <!-- 1. Deposit Funds Modal (Dedicated BTC Address: 1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV) -->
+  <!-- 1. Deposit Funds Modal (Tier 1: $10-$15,000 & Tier 2: $16,000+) -->
   <div class="modal-overlay" id="depositModal">
-    <div class="modal-card" style="max-width: 500px;">
+    <div class="modal-card" style="max-width: 540px;">
       <div class="modal-header">
         <div style="display: flex; align-items: center; gap: 0.6rem;">
           <span style="font-size: 1.2rem;">📥</span>
@@ -495,7 +495,7 @@
         </div>
         <button class="modal-close-btn" data-close-modal="depositModal">&times;</button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="gap: 1rem;">
         <div class="deposit-client-badge">
           <div class="user-avatar" style="width: 26px; height: 26px; font-size: 0.7rem;">PR</div>
           <div>
@@ -504,84 +504,80 @@
           </div>
         </div>
 
-        <div class="deposit-network-pill">
-          <div style="display: flex; align-items: center; gap: 0.5rem;">
-            <span class="pulse-dot"></span>
-            <span style="font-weight: 700; font-size: 0.8rem; color: #f7931a;">BITCOIN (BTC) NATIVE NETWORK</span>
-          </div>
-          <span class="brand-badge" style="background: rgba(247, 147, 26, 0.15); color: #f7931a; border-color: rgba(247, 147, 26, 0.3);">SegWit / Legacy</span>
-        </div>
-
-        <div class="deposit-address-container">
-          <div class="deposit-address-label">
-            <span>DEDICATED DEPOSIT ADDRESS</span>
-            <span style="color: #10b981; font-size: 0.72rem;">● Active &amp; Verified</span>
-          </div>
-          
-          <div class="deposit-address-box">
-            <code class="deposit-address-text" id="depositAddressText">1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV</code>
-            <button class="btn-copy-address" id="btnCopyDepositAddress" title="Copy Address to Clipboard">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-              </svg>
-              <span id="copyBtnLabel">Copy</span>
-            </button>
+        <div class="deposit-routing-intro">
+          <div style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.45;">
+            Select the designated Bitcoin (BTC) deposit address below corresponding to your transaction capital amount:
           </div>
         </div>
 
-        <div class="deposit-qr-wrap">
-          <div class="deposit-qr-card">
-            <svg class="qr-svg" viewBox="0 0 100 100" width="100" height="100">
-              <rect width="100" height="100" fill="#ffffff" rx="4"/>
-              <!-- Corner 1 -->
-              <rect x="8" y="8" width="26" height="26" fill="#0b0f19" rx="2"/>
-              <rect x="12" y="12" width="18" height="18" fill="#ffffff"/>
-              <rect x="16" y="16" width="10" height="10" fill="#0b0f19"/>
-              <!-- Corner 2 -->
-              <rect x="66" y="8" width="26" height="26" fill="#0b0f19" rx="2"/>
-              <rect x="70" y="12" width="18" height="18" fill="#ffffff"/>
-              <rect x="74" y="16" width="10" height="10" fill="#0b0f19"/>
-              <!-- Corner 3 -->
-              <rect x="8" y="66" width="26" height="26" fill="#0b0f19" rx="2"/>
-              <rect x="12" y="70" width="18" height="18" fill="#ffffff"/>
-              <rect x="16" y="74" width="10" height="10" fill="#0b0f19"/>
-              <!-- QR Data Matrix -->
-              <rect x="38" y="10" width="5" height="5" fill="#0b0f19"/>
-              <rect x="48" y="10" width="10" height="5" fill="#0b0f19"/>
-              <rect x="38" y="20" width="5" height="15" fill="#0b0f19"/>
-              <rect x="48" y="25" width="10" height="5" fill="#0b0f19"/>
-              <rect x="10" y="40" width="15" height="5" fill="#0b0f19"/>
-              <rect x="30" y="40" width="5" height="5" fill="#0b0f19"/>
-              <rect x="40" y="40" width="20" height="5" fill="#0b0f19"/>
-              <rect x="65" y="40" width="10" height="5" fill="#0b0f19"/>
-              <rect x="80" y="40" width="10" height="5" fill="#0b0f19"/>
-              <rect x="10" y="50" width="5" height="10" fill="#0b0f19"/>
-              <rect x="20" y="55" width="10" height="5" fill="#0b0f19"/>
-              <rect x="35" y="50" width="10" height="10" fill="#0b0f19"/>
-              <rect x="50" y="55" width="15" height="5" fill="#0b0f19"/>
-              <rect x="70" y="50" width="10" height="10" fill="#0b0f19"/>
-              <rect x="85" y="55" width="5" height="5" fill="#0b0f19"/>
-              <rect x="40" y="65" width="15" height="5" fill="#0b0f19"/>
-              <rect x="60" y="65" width="5" height="15" fill="#0b0f19"/>
-              <rect x="70" y="70" width="20" height="5" fill="#0b0f19"/>
-              <rect x="40" y="75" width="5" height="15" fill="#0b0f19"/>
-              <rect x="50" y="80" width="10" height="10" fill="#0b0f19"/>
-              <rect x="65" y="85" width="10" height="5" fill="#0b0f19"/>
-              <rect x="80" y="80" width="10" height="10" fill="#0b0f19"/>
-            </svg>
+        <!-- Tier 1: Deposits $10 to $15,000 -->
+        <div class="deposit-tier-card">
+          <div class="deposit-tier-header">
+            <div class="deposit-tier-title-wrap">
+              <span style="font-size: 1.05rem;">🏷️</span>
+              <div>
+                <div class="deposit-tier-title">Standard Deposit Tier</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">BTC Network • SegWit / Legacy</div>
+              </div>
+            </div>
+            <span class="deposit-tier-range-pill">$10 – $15,000 USD</span>
           </div>
-          <div class="deposit-instructions">
-            <div style="font-size: 0.8rem; font-weight: 700; color: #f8fafc; margin-bottom: 0.25rem;">Custodial Deposit Notice</div>
-            <p style="font-size: 0.74rem; color: var(--text-secondary); line-height: 1.45;">
-              Send Bitcoin (BTC) to this unique address. Capital is credited automatically to <strong>Pablo Rindt</strong>'s valuation balance upon 1 blockchain confirmation.
-            </p>
+
+          <div class="deposit-address-container">
+            <div class="deposit-address-label">
+              <span>DEPOSIT ADDRESS (FOR $10 – $15,000)</span>
+              <span style="color: #10b981; font-size: 0.7rem;">● Active &amp; Verified</span>
+            </div>
+            <div class="deposit-address-box">
+              <code class="deposit-address-text" id="depositAddressTier1">1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV</code>
+              <button class="btn-copy-address" id="btnCopyTier1" title="Copy Tier 1 Deposit Address">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copyBtnLabelTier1">Copy</span>
+              </button>
+            </div>
           </div>
+        </div>
+
+        <!-- Tier 2: Deposits $16,000 and Above -->
+        <div class="deposit-tier-card tier-large">
+          <div class="deposit-tier-header">
+            <div class="deposit-tier-title-wrap">
+              <span style="font-size: 1.05rem;">🏛️</span>
+              <div>
+                <div class="deposit-tier-title">Institutional High-Volume Tier</div>
+                <div style="font-size: 0.7rem; color: #34d399;">BTC Network • Native SegWit (Bech32)</div>
+              </div>
+            </div>
+            <span class="deposit-tier-range-pill large">$16,000 USD &amp; Above</span>
+          </div>
+
+          <div class="deposit-address-container">
+            <div class="deposit-address-label">
+              <span>DEPOSIT ADDRESS (FOR $16,000+)</span>
+              <span style="color: #34d399; font-size: 0.7rem;">● Priority Institutional Settlement</span>
+            </div>
+            <div class="deposit-address-box">
+              <code class="deposit-address-text" id="depositAddressTier2">bc1qqk30wwhkp85etumtcak8ujzfjdekye9rkkm7wz</code>
+              <button class="btn-copy-address" id="btnCopyTier2" title="Copy Tier 2 Deposit Address">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copyBtnLabelTier2">Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="lock-policy-note" style="margin-top: 0.25rem;">
+          <span>ℹ️ <strong>Routing Protocol</strong>: For deposits between <strong>$10 and $15,000</strong>, send BTC to the Standard Allocation address. For deposits of <strong>$16,000 and above</strong>, send BTC to the Institutional High-Volume address. Funds credit to <strong>Pablo Rindt</strong>'s account after 1 confirmation.</span>
         </div>
       </div>
       <div class="modal-footer">
-        <button class="btn-secondary" data-close-modal="depositModal">Close</button>
-        <button class="btn-primary" id="btnCopyAddressFooter">Copy Address</button>
+        <button class="btn-secondary" data-close-modal="depositModal" style="width: 100%; justify-content: center;">Close</button>
       </div>
     </div>
   </div>

