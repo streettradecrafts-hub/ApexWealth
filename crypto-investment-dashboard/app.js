@@ -594,8 +594,8 @@
 
       return `
         <tr data-coin-id="${coin.id}">
-          <td class="crypto-rank">${index + 1}</td>
-          <td>
+          <td class="col-rank crypto-rank">${index + 1}</td>
+          <td class="col-asset">
             <div class="coin-cell">
               <img src="${coinImg}" alt="${coin.name}" class="coin-icon" style="width: 20px; height: 20px; max-width: 20px; max-height: 20px; border-radius: 50%; object-fit: contain; flex-shrink: 0;" onerror="this.src='https://cdn-icons-png.flaticon.com/512/217/217853.png'">
               <div>
@@ -604,22 +604,22 @@
               </div>
             </div>
           </td>
-          <td class="mono-cell font-bold" id="price-cell-${coin.id}">
+          <td class="col-price mono-cell font-bold" id="price-cell-${coin.id}">
             ${formatPreciseCurrency(coin.current_price)}
           </td>
-          <td>
+          <td class="col-change">
             <span class="change-pill-cell ${isUp ? 'up' : 'down'}">
               ${isUp ? '+' : ''}${change24h.toFixed(2)}%
             </span>
           </td>
-          <td class="mono-cell" style="font-size: 0.78rem;">
+          <td class="col-range mono-cell" style="font-size: 0.78rem;">
             <div>H: ${formatPreciseCurrency(high)}</div>
             <div style="color: var(--text-muted);">L: ${formatPreciseCurrency(low)}</div>
           </td>
-          <td class="mono-cell">${formatMoney(volume)}</td>
-          <td class="mono-cell">${formatMoney(mcap)}</td>
-          <td>${sparklineSvg}</td>
-          <td style="text-align: right;">
+          <td class="col-volume mono-cell">${formatMoney(volume)}</td>
+          <td class="col-mcap mono-cell">${formatMoney(mcap)}</td>
+          <td class="col-sparkline">${sparklineSvg}</td>
+          <td class="col-action" style="text-align: right;">
             <button class="trade-btn-sm" onclick="window.ApexApp.openQuickTrade('${coin.id}', '${symbolUpper}')">
               Trade
             </button>
@@ -677,7 +677,7 @@
 
       return `
         <tr>
-          <td>
+          <td class="col-holding-asset">
             <div class="coin-cell">
               <div class="user-avatar" style="width: 20px; height: 20px; min-width: 20px; min-height: 20px; font-size: 0.65rem; line-height: 20px; background: ${h.color}; color: #000; font-weight: bold; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                 ${h.icon}
@@ -688,16 +688,16 @@
               </div>
             </div>
           </td>
-          <td class="mono-cell">
+          <td class="col-holding-qty mono-cell">
             ${h.quantity >= 1000 ? h.quantity.toLocaleString() : h.quantity.toFixed(4)} ${h.symbol}
           </td>
-          <td class="mono-cell">
+          <td class="col-holding-avg mono-cell">
             ${formatPreciseCurrency(h.avgBuyPrice)}
           </td>
-          <td class="mono-cell font-bold" style="color: #fff;">
+          <td class="col-holding-val mono-cell font-bold" style="color: #fff;">
             ${formatMoney(currentVal)}
           </td>
-          <td>
+          <td class="col-holding-pnl">
             <span class="change-pill-cell ${isPositive ? 'up' : 'down'}">
               ${isPositive ? '+' : ''}${formatMoney(pnlDollars)} (${isPositive ? '+' : ''}${pnlPercent.toFixed(1)}%)
             </span>
@@ -898,10 +898,10 @@
       const tooltipVal = document.getElementById('tooltipVal');
       if (!container || !tooltip) return;
 
-      container.addEventListener('mousemove', (e) => {
+      const handlePointerMove = (clientX) => {
         if (!this.currentCoords || this.currentCoords.length === 0) return;
         const rect = container.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
+        const mouseX = clientX - rect.left;
 
         // Find nearest point
         let nearest = this.currentCoords[0];
@@ -919,11 +919,30 @@
         tooltip.style.top = `${nearest.y - 12}px`;
         if (tooltipDate) tooltipDate.textContent = nearest.date;
         if (tooltipVal) tooltipVal.textContent = formatMoney(nearest.val);
+      };
+
+      container.addEventListener('mousemove', (e) => {
+        handlePointerMove(e.clientX);
       });
 
-      container.addEventListener('mouseleave', () => {
+      container.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          handlePointerMove(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      container.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches.length > 0) {
+          handlePointerMove(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      const hideTooltip = () => {
         tooltip.style.opacity = '0';
-      });
+      };
+
+      container.addEventListener('mouseleave', hideTooltip);
+      container.addEventListener('touchend', hideTooltip);
 
       // Timeframe buttons
       const timeBtns = document.querySelectorAll('#timeframeSelector .time-btn');

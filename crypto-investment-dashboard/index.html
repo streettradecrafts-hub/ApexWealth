@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Apex Wealth | Pablo Rindt Private Portfolio ($128,856.00)</title>
   <meta name="description" content="Private cryptocurrency investment dashboard for Pablo Rindt featuring live real-time BTC and altcoin prices, initial deposit tracking of $40,674, +216.80% net profit, and total valuation of $128,856.00.">
   
@@ -414,15 +414,15 @@
           <table class="crypto-table" id="cryptoMarketTable">
             <thead>
               <tr>
-                <th class="crypto-rank">#</th>
-                <th>Asset</th>
-                <th>Price (USD)</th>
-                <th>24h Change</th>
-                <th>24h High / Low</th>
-                <th>24h Volume</th>
-                <th>Market Cap</th>
-                <th>Last 7 Days</th>
-                <th style="text-align: right;">Action</th>
+                <th class="col-rank crypto-rank">#</th>
+                <th class="col-asset">Asset</th>
+                <th class="col-price">Price (USD)</th>
+                <th class="col-change">24h Change</th>
+                <th class="col-range">24h High / Low</th>
+                <th class="col-volume">24h Volume</th>
+                <th class="col-mcap">Market Cap</th>
+                <th class="col-sparkline">Last 7 Days</th>
+                <th class="col-action" style="text-align: right;">Action</th>
               </tr>
             </thead>
             <tbody id="cryptoTableBody">
@@ -451,11 +451,11 @@
             <table class="crypto-table">
               <thead>
                 <tr>
-                  <th>Asset</th>
-                  <th>Quantity</th>
-                  <th>Avg Buy Price</th>
-                  <th>Current Value</th>
-                  <th>Unrealized P&amp;L</th>
+                  <th class="col-holding-asset">Asset</th>
+                  <th class="col-holding-qty">Quantity</th>
+                  <th class="col-holding-avg">Avg Buy Price</th>
+                  <th class="col-holding-val">Current Value</th>
+                  <th class="col-holding-pnl">Unrealized P&amp;L</th>
                 </tr>
               </thead>
               <tbody id="holdingsTableBody">
