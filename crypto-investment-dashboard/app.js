@@ -1,24 +1,242 @@
 /**
  * Apex Wealth - Private Institutional Client Portal
- * Dashboard Application Logic for Pablo Rindt ($128,000.00)
+ * Dashboard Application Logic for Pablo Rindt ($128,000.00) & Tami Wilson (20,315 CAD)
  */
 
 (function () {
   'use strict';
 
+  // --- Verified Institutional User Profiles ---
+  const USER_PROFILES = {
+    pablo1990: {
+      username: "pablo1990",
+      password: "PablonBeaton26",
+      name: "Pablo Rindt",
+      initials: "PR",
+      tier: "Accredited Investor Tier III",
+      id: "PR-984420-APX",
+      baseCurrency: 'USD',
+      currencySymbol: '$',
+      currencies: [
+        { code: 'USD', symbol: '$', rate: 1.0 },
+        { code: 'CAD', symbol: 'CA$', rate: 1.36 },
+        { code: 'EUR', symbol: '€', rate: 0.92 },
+        { code: 'GBP', symbol: '£', rate: 0.78 },
+        { code: 'BTC', symbol: '₿', rate: 0.000013 }
+      ],
+      baseBalance: 128856.00,
+      initialDeposit: 40674.00,
+      totalProfit: 88182.00,
+      roiPercent: 216.80,
+      cashReserve: 9019.92,
+      cryptoValue: 119836.08,
+      todayPnl: 1640.20,
+      todayPnlPercent: 1.29,
+      btcUnits: '0.87520 BTC',
+      btcVal: 67005.12,
+      btcLabel: "Pablo's Bitcoin Holding:",
+      chartGrowthSubtitle: "Historical valuation growth track from initial $40,674.00 deposit to $128,856.00 (+216.80%)",
+      allocationSubtitle: "Target balance of $128,856 distributed by asset class",
+      holdingsTitle: "Pablo Rindt's Asset Holdings",
+      holdingsSubtitle: "Real-time valuation based on latest spot prices (Total: $128,856.00)",
+      footerClient: "Pablo Rindt",
+      pageTitle: "Apex Wealth | Pablo Rindt Private Portfolio ($128,856.00)",
+      pageDescription: "Private cryptocurrency investment dashboard for Pablo Rindt featuring live real-time BTC and altcoin prices, initial deposit tracking of $40,674, +216.80% net profit, and total valuation of $128,856.00.",
+      depositUser: "Pablo Rindt",
+      depositTier: "Verified Tier III Custodial Allocation Vault",
+      depositRangePill1: "$10 – $15,000 USD",
+      depositRangePill2: "$16,000+ USD",
+      depositRouting: "ℹ️ <strong>Routing Protocol</strong>: For deposits between <strong>$10 and $15,000</strong>, send BTC to the Standard Allocation address. For deposits of <strong>$16,000 and above</strong>, send BTC to the Institutional High-Volume address. Funds credit to <strong>Pablo Rindt</strong>'s account after 1 confirmation.",
+      withdrawBeneficiary: "Pablo Rindt (Accredited Tier III)",
+      withdrawLocked: "$128,856.00 USD",
+      withdrawExpiry: "February 2027",
+      withdrawBannerTitle: "Assets Locked Until February 2027",
+      withdrawBannerText: "Portfolio capital in account <strong>Pablo Rindt</strong> is locked under an accredited private wealth fixed-term custody agreement. Withdrawals and capital transfers are restricted until <strong>February 2027</strong>.",
+      allocations: {
+        btc: 67005.12,
+        eth: 32214.00,
+        sol: 15462.72,
+        usdt: 9019.92,
+        alt: 5154.24
+      },
+      holdings: [
+        {
+          id: 'bitcoin',
+          name: 'Bitcoin',
+          symbol: 'BTC',
+          icon: '₿',
+          color: '#f7931a',
+          quantity: 0.87520,
+          avgBuyPrice: 28420.00,
+          baseTargetVal: 67005.12,
+          currentPrice: 76560.00
+        },
+        {
+          id: 'ethereum',
+          name: 'Ethereum',
+          symbol: 'ETH',
+          icon: 'Ξ',
+          color: '#627eea',
+          quantity: 12.293,
+          avgBuyPrice: 1250.00,
+          baseTargetVal: 32214.00,
+          currentPrice: 2620.00
+        },
+        {
+          id: 'solana',
+          name: 'Solana',
+          symbol: 'SOL',
+          icon: '◎',
+          color: '#14f195',
+          quantity: 113.25,
+          avgBuyPrice: 38.50,
+          baseTargetVal: 15462.72,
+          currentPrice: 136.50
+        },
+        {
+          id: 'tether',
+          name: 'Tether USD (Cash Reserve)',
+          symbol: 'USDT',
+          icon: '₮',
+          color: '#26a17b',
+          quantity: 9019.92,
+          avgBuyPrice: 1.00,
+          baseTargetVal: 9019.92,
+          currentPrice: 1.00
+        },
+        {
+          id: 'binancecoin',
+          name: 'BNB & Liquid Alts',
+          symbol: 'BNB',
+          icon: '🔶',
+          color: '#a855f7',
+          quantity: 8.879,
+          avgBuyPrice: 245.00,
+          baseTargetVal: 5154.24,
+          currentPrice: 580.50
+        }
+      ]
+    },
+    bysontami: {
+      username: "bysontami",
+      password: "TaminByson26",
+      name: "Tami Wilson",
+      initials: "TW",
+      tier: "Accredited Investor Tier II",
+      id: "TW-402918-APX",
+      baseCurrency: 'CAD',
+      currencySymbol: 'CA$',
+      currencies: [
+        { code: 'CAD', symbol: 'CA$', rate: 1.0 },
+        { code: 'USD', symbol: '$', rate: 0.74 },
+        { code: 'EUR', symbol: '€', rate: 0.68 },
+        { code: 'GBP', symbol: '£', rate: 0.58 },
+        { code: 'BTC', symbol: '₿', rate: 0.0000096 }
+      ],
+      baseBalance: 20000.00,
+      initialDeposit: 6250.00,
+      totalProfit: 13750.00,
+      roiPercent: 220.00,
+      cashReserve: 1400.00,
+      cryptoValue: 18600.00,
+      todayPnl: 312.50,
+      todayPnlPercent: 1.58,
+      btcUnits: '0.13600 BTC',
+      btcVal: 10400.00,
+      btcLabel: "Tami's Bitcoin Holding:",
+      chartGrowthSubtitle: "Historical valuation growth track from initial CA$6,250.00 deposit to CA$20,315.00 (+220.00%)",
+      allocationSubtitle: "Target balance of 20,000 CAD distributed by asset class",
+      holdingsTitle: "Tami Wilson's Asset Holdings",
+      holdingsSubtitle: "Real-time valuation based on latest spot prices (Total: CA$20,315.00)",
+      footerClient: "Tami Wilson",
+      pageTitle: "Apex Wealth | Tami Wilson Private Portfolio (CA$20,315.00)",
+      pageDescription: "Private cryptocurrency investment dashboard for Tami Wilson featuring live real-time crypto prices, initial deposit tracking of CA$6,250, +220.00% net profit, and total valuation of 20,000 CAD.",
+      depositUser: "Tami Wilson",
+      depositTier: "Verified Tier II Custodial Allocation Vault",
+      depositRangePill1: "CA$10 – CA$5,000 CAD",
+      depositRangePill2: "CA$5,000+ CAD",
+      depositRouting: "ℹ️ <strong>Routing Protocol</strong>: For deposits between <strong>CA$10 and CA$5,000</strong>, send BTC to the Standard Allocation address. For deposits of <strong>CA$5,000 and above</strong>, send BTC to the Institutional High-Volume address. Funds credit to <strong>Tami Wilson</strong>'s account after 1 confirmation.",
+      withdrawBeneficiary: "Tami Wilson (Accredited Tier II)",
+      withdrawLocked: "CA$20,315.00 CAD",
+      withdrawExpiry: "December 2026",
+      withdrawBannerTitle: "Assets Locked Until December 2026",
+      withdrawBannerText: "Portfolio capital in account <strong>Tami Wilson</strong> is locked under an accredited private wealth fixed-term custody agreement. Withdrawals and capital transfers are restricted until <strong>December 2026</strong>.",
+      allocations: {
+        btc: 10400.00,
+        eth: 5000.00,
+        sol: 2400.00,
+        usdt: 1400.00,
+        alt: 800.00
+      },
+      holdings: [
+        {
+          id: 'bitcoin',
+          name: 'Bitcoin',
+          symbol: 'BTC',
+          icon: '₿',
+          color: '#f7931a',
+          quantity: 0.13600,
+          avgBuyPrice: 38200.00,
+          baseTargetVal: 10400.00,
+          currentPrice: 76470.00
+        },
+        {
+          id: 'ethereum',
+          name: 'Ethereum',
+          symbol: 'ETH',
+          icon: 'Ξ',
+          color: '#627eea',
+          quantity: 1.400,
+          avgBuyPrice: 1750.00,
+          baseTargetVal: 5000.00,
+          currentPrice: 3571.40
+        },
+        {
+          id: 'solana',
+          name: 'Solana',
+          symbol: 'SOL',
+          icon: '◎',
+          color: '#14f195',
+          quantity: 13.00,
+          avgBuyPrice: 52.00,
+          baseTargetVal: 2400.00,
+          currentPrice: 184.60
+        },
+        {
+          id: 'tether',
+          name: 'CAD Reserve (Cash Equivalent)',
+          symbol: 'CAD',
+          icon: '$',
+          color: '#26a17b',
+          quantity: 1400.00,
+          avgBuyPrice: 1.00,
+          baseTargetVal: 1400.00,
+          currentPrice: 1.00
+        },
+        {
+          id: 'binancecoin',
+          name: 'Liquid Alts & DeFi Yield',
+          symbol: 'ALTS',
+          icon: '🔶',
+          color: '#a855f7',
+          quantity: 24.50,
+          avgBuyPrice: 13.00,
+          baseTargetVal: 800.00,
+          currentPrice: 32.65
+        }
+      ]
+    }
+  };
+
   // --- Global Application State ---
   const STATE = {
+    currentUserProfile: USER_PROFILES.pablo1990,
     user: {
       name: "Pablo Rindt",
       tier: "Accredited Investor Tier III",
       id: "PR-984420-APX"
     },
-    currencies: [
-      { code: 'USD', symbol: '$', rate: 1.0 },
-      { code: 'EUR', symbol: '€', rate: 0.92 },
-      { code: 'GBP', symbol: '£', rate: 0.78 },
-      { code: 'BTC', symbol: '₿', rate: 0.000013 }
-    ],
+    currencies: USER_PROFILES.pablo1990.currencies,
     currentCurrencyIndex: 0,
     privacyActive: false,
     initialDeposit: 40674.00,
@@ -38,64 +256,11 @@
     chartRange: '1M',
     countdown: 30,
     isSyncing: false,
-    // Pablo Rindt's curated holdings breakdown (Baseline adds up to exact $128,856.00)
-    holdings: [
-      {
-        id: 'bitcoin',
-        name: 'Bitcoin',
-        symbol: 'BTC',
-        icon: '₿',
-        color: '#f7931a',
-        quantity: 0.87520,
-        avgBuyPrice: 28420.00,
-        baseTargetVal: 67005.12,
-        currentPrice: 76560.00
-      },
-      {
-        id: 'ethereum',
-        name: 'Ethereum',
-        symbol: 'ETH',
-        icon: 'Ξ',
-        color: '#627eea',
-        quantity: 12.293,
-        avgBuyPrice: 1250.00,
-        baseTargetVal: 32214.00,
-        currentPrice: 2620.00
-      },
-      {
-        id: 'solana',
-        name: 'Solana',
-        symbol: 'SOL',
-        icon: '◎',
-        color: '#14f195',
-        quantity: 113.25,
-        avgBuyPrice: 38.50,
-        baseTargetVal: 15462.72,
-        currentPrice: 136.50
-      },
-      {
-        id: 'tether',
-        name: 'Tether USD (Cash Reserve)',
-        symbol: 'USDT',
-        icon: '₮',
-        color: '#26a17b',
-        quantity: 9019.92,
-        avgBuyPrice: 1.00,
-        baseTargetVal: 9019.92,
-        currentPrice: 1.00
-      },
-      {
-        id: 'binancecoin',
-        name: 'BNB & Liquid Alts',
-        symbol: 'BNB',
-        icon: '🔶',
-        color: '#a855f7',
-        quantity: 8.879,
-        avgBuyPrice: 245.00,
-        baseTargetVal: 5154.24,
-        currentPrice: 580.50
-      }
-    ]
+    btcUnits: '0.87520 BTC',
+    btcVal: 67005.12,
+    btcLabel: "Pablo's Bitcoin Holding:",
+    allocations: USER_PROFILES.pablo1990.allocations,
+    holdings: USER_PROFILES.pablo1990.holdings
   };
 
   // --- High-Fidelity Fallback Dataset with 7-Day Sparklines ---
@@ -298,7 +463,7 @@
   function formatMoney(amount, showSymbol = true) {
     const cur = STATE.currencies[STATE.currentCurrencyIndex];
     const converted = amount * cur.rate;
-    
+
     let formatted;
     if (cur.code === 'BTC') {
       formatted = converted.toFixed(4) + ' BTC';
@@ -342,7 +507,7 @@
     STATE.isSyncing = true;
     const syncBtn = document.getElementById('btnManualRefresh');
     if (syncBtn) syncBtn.classList.add('spinning');
-    
+
     const marketPill = document.getElementById('marketStatusPill');
     const marketStatusText = document.getElementById('marketStatusText');
     if (marketStatusText) marketStatusText.textContent = 'Synchronizing...';
@@ -391,11 +556,11 @@
 
     STATE.marketCoins = fetchedData;
     updateDashboardWithMarketData();
-    
+
     STATE.isSyncing = false;
     if (syncBtn) syncBtn.classList.remove('spinning');
     if (marketStatusText) marketStatusText.textContent = 'Live Feed Connected';
-    
+
     const timestampEl = document.getElementById('tickerSyncTimestamp');
     if (timestampEl) {
       const now = new Date();
@@ -482,11 +647,27 @@
     const allocUsdt = document.getElementById('allocValUsdt');
     const allocAlt = document.getElementById('allocValAlt');
 
-    if (allocBtc) allocBtc.textContent = formatMoney(67005.12);
-    if (allocEth) allocEth.textContent = formatMoney(32214.00);
-    if (allocSol) allocSol.textContent = formatMoney(15462.72);
-    if (allocUsdt) allocUsdt.textContent = formatMoney(9019.92);
-    if (allocAlt) allocAlt.textContent = formatMoney(5154.24);
+    const allocs = STATE.allocations || {
+      btc: 67005.12,
+      eth: 32214.00,
+      sol: 15462.72,
+      usdt: 9019.92,
+      alt: 5154.24
+    };
+
+    if (allocBtc) allocBtc.textContent = formatMoney(allocs.btc);
+    if (allocEth) allocEth.textContent = formatMoney(allocs.eth);
+    if (allocSol) allocSol.textContent = formatMoney(allocs.sol);
+    if (allocUsdt) allocUsdt.textContent = formatMoney(allocs.usdt);
+    if (allocAlt) allocAlt.textContent = formatMoney(allocs.alt);
+
+    // Update BTC Spotlight Card
+    const btcUnitsEl = document.getElementById('pabloBtcUnits');
+    const btcValEl = document.getElementById('pabloBtcVal');
+    const btcLabelEl = document.getElementById('userBtcHoldingLabel');
+    if (btcUnitsEl && STATE.btcUnits) btcUnitsEl.textContent = STATE.btcUnits;
+    if (btcValEl && STATE.btcVal) btcValEl.textContent = formatMoney(STATE.btcVal);
+    if (btcLabelEl && STATE.btcLabel) btcLabelEl.textContent = STATE.btcLabel;
   }
 
   // --- SVG Sparkline Generator ---
@@ -533,8 +714,8 @@
     // Search filter
     if (STATE.searchQuery.trim()) {
       const q = STATE.searchQuery.toLowerCase().trim();
-      coins = coins.filter(c => 
-        (c.name && c.name.toLowerCase().includes(q)) || 
+      coins = coins.filter(c =>
+        (c.name && c.name.toLowerCase().includes(q)) ||
         (c.symbol && c.symbol.toLowerCase().includes(q))
       );
     }
@@ -648,7 +829,7 @@
     tbody.innerHTML = STATE.holdings.map(h => {
       const currentCoin = STATE.marketCoins.find(c => c.id === h.id || c.symbol?.toLowerCase() === h.symbol.toLowerCase());
       const currentPrice = currentCoin ? currentCoin.current_price : h.currentPrice;
-      
+
       // Calculate realistic holding values
       const currentVal = h.baseTargetVal;
       const costBasis = h.quantity * h.avgBuyPrice;
@@ -710,7 +891,7 @@
     generateData(range) {
       const base = STATE.currentBalance;
       let count = 30;
-      let startVal = 114200;
+      let startVal = base * 0.886;
       this.points = [];
       this.dates = [];
 
@@ -718,56 +899,61 @@
 
       if (range === '24H') {
         count = 24;
-        startVal = 127215.80;
+        startVal = base * 0.988;
+        const noiseAmp = base * 0.0035;
         for (let i = 0; i < count; i++) {
           const d = new Date(now.getTime() - (count - 1 - i) * 3600 * 1000);
           this.dates.push(d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
           const progress = i / (count - 1);
-          const noise = Math.sin(i * 0.8) * 450 + (Math.random() * 200 - 100);
+          const noise = Math.sin(i * 0.8) * noiseAmp + (Math.random() * (noiseAmp * 0.4) - (noiseAmp * 0.2));
           const val = startVal + (base - startVal) * progress + noise;
           this.points.push(i === count - 1 ? base : val);
         }
       } else if (range === '7D') {
         count = 14;
-        startVal = 123500;
+        startVal = base * 0.958;
+        const noiseAmp = base * 0.006;
         for (let i = 0; i < count; i++) {
           const d = new Date(now.getTime() - (count - 1 - i) * 12 * 3600 * 1000);
           this.dates.push(d.toLocaleDateString([], { weekday: 'short', hour: '2-digit' }));
           const progress = i / (count - 1);
-          const noise = Math.sin(i * 0.9) * 800 + (Math.random() * 300);
+          const noise = Math.sin(i * 0.9) * noiseAmp + (Math.random() * (noiseAmp * 0.3));
           const val = startVal + (base - startVal) * progress + noise;
           this.points.push(i === count - 1 ? base : val);
         }
       } else if (range === '1M') {
         count = 30;
-        startVal = 114200;
+        startVal = base * 0.886;
+        const noiseAmp = base * 0.01;
         for (let i = 0; i < count; i++) {
           const d = new Date(now.getTime() - (count - 1 - i) * 24 * 3600 * 1000);
           this.dates.push(d.toLocaleDateString([], { month: 'short', day: 'numeric' }));
           const progress = i / (count - 1);
-          const noise = Math.sin(i * 0.5) * 1400 + Math.cos(i * 0.3) * 600;
+          const noise = Math.sin(i * 0.5) * noiseAmp + Math.cos(i * 0.3) * (noiseAmp * 0.4);
           const val = startVal + (base - startVal) * Math.pow(progress, 0.85) + noise;
           this.points.push(i === count - 1 ? base : val);
         }
       } else if (range === '1Y') {
         count = 12;
-        startVal = 52000;
+        startVal = Math.max(STATE.initialDeposit, base * 0.404);
+        const noiseAmp = base * 0.018;
         for (let i = 0; i < count; i++) {
           const d = new Date(now.getFullYear(), now.getMonth() - (count - 1 - i), 1);
           this.dates.push(d.toLocaleDateString([], { month: 'short' }));
           const progress = i / (count - 1);
-          const noise = (Math.sin(i * 0.7) * 2500);
+          const noise = (Math.sin(i * 0.7) * noiseAmp);
           const val = startVal + (base - startVal) * Math.pow(progress, 0.9) + noise;
           this.points.push(i === count - 1 ? base : val);
         }
-      } else { // ALL - Historical track from initial deposit $40,674 to $128,856 (+216.80%)
+      } else { // ALL - Historical track from initial deposit to base
         count = 20;
         startVal = STATE.initialDeposit;
+        const noiseAmp = base * 0.018;
         for (let i = 0; i < count; i++) {
           const d = new Date(2025, 0 + Math.round(i * 1.1), 14);
           this.dates.push(d.toLocaleDateString([], { month: 'short', year: '2-digit' }));
           const progress = i / (count - 1);
-          const noise = (i === 0 || i === count - 1) ? 0 : Math.sin(i * 1.1) * 2400;
+          const noise = (i === 0 || i === count - 1) ? 0 : Math.sin(i * 1.1) * noiseAmp;
           const val = startVal + (base - startVal) * Math.pow(progress, 1.15) + noise;
           this.points.push(i === count - 1 ? base : val);
         }
@@ -778,7 +964,7 @@
       if (!this.canvas || !this.ctx) return;
       const rect = this.canvas.parentElement.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      
+
       const width = rect.width;
       const height = rect.height;
 
@@ -1070,7 +1256,7 @@
         try {
           document.execCommand('copy');
           updateLabelSuccess();
-        } catch (e) {}
+        } catch (e) { }
         document.body.removeChild(ta);
       }
     }
@@ -1217,6 +1403,301 @@
     list.insertBefore(item, list.firstChild);
   }
 
+  // --- Dynamic Profile Application Engine ---
+  function applyUserProfile(profile) {
+    if (!profile) return;
+    STATE.currentUserProfile = profile;
+    STATE.user = {
+      name: profile.name,
+      tier: profile.tier,
+      id: profile.id
+    };
+    STATE.currencies = profile.currencies;
+    STATE.currentCurrencyIndex = 0;
+    STATE.baseBalance = profile.baseBalance;
+    STATE.currentBalance = profile.baseBalance;
+    STATE.initialDeposit = profile.initialDeposit;
+    STATE.totalProfit = profile.totalProfit;
+    STATE.roiPercent = profile.roiPercent;
+    STATE.cashReserve = profile.cashReserve;
+    STATE.cryptoValue = profile.cryptoValue;
+    STATE.todayPnl = profile.todayPnl;
+    STATE.todayPnlPercent = profile.todayPnlPercent;
+    STATE.holdings = profile.holdings;
+    STATE.allocations = profile.allocations;
+    STATE.btcUnits = profile.btcUnits;
+    STATE.btcVal = profile.btcVal;
+    STATE.btcLabel = profile.btcLabel;
+
+    // Update document title & metadata
+    document.title = profile.pageTitle;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', profile.pageDescription);
+
+    // Update Header
+    const userNameEl = document.getElementById('userNameDisplay');
+    if (userNameEl) userNameEl.textContent = `${profile.name} 🛡️`;
+
+    const userAvatarEl = document.getElementById('userAvatar');
+    if (userAvatarEl) userAvatarEl.textContent = profile.initials;
+
+    const userTierEl = document.getElementById('userTierDisplay');
+    if (userTierEl) userTierEl.innerHTML = `<span>★</span> ${profile.tier}`;
+
+    const curBtn = document.getElementById('currencyToggleBtn');
+    if (curBtn) curBtn.innerHTML = `<span>🌐</span> ${profile.currencies[0].code} (${profile.currencies[0].symbol})`;
+
+    // Update Spotlight & Subtitles
+    const chartGrowthSub = document.getElementById('chartSubtitleGrowth');
+    if (chartGrowthSub) chartGrowthSub.textContent = profile.chartGrowthSubtitle;
+
+    const allocSub = document.getElementById('allocationSubtitle');
+    if (allocSub) allocSub.textContent = profile.allocationSubtitle;
+
+    const holdingsTitleEl = document.getElementById('holdingsCardTitle');
+    if (holdingsTitleEl) holdingsTitleEl.textContent = profile.holdingsTitle;
+
+    const holdingsSubEl = document.getElementById('holdingsCardSubtitle');
+    if (holdingsSubEl) holdingsSubEl.textContent = profile.holdingsSubtitle;
+
+    const footerNameEl = document.getElementById('footerClientName');
+    if (footerNameEl) footerNameEl.textContent = profile.footerClient;
+
+    // Update Modals
+    const depositAvatarEl = document.getElementById('depositAvatar');
+    if (depositAvatarEl) depositAvatarEl.textContent = profile.initials;
+
+    const depositUserEl = document.getElementById('depositUserName');
+    if (depositUserEl) depositUserEl.textContent = profile.depositUser;
+
+    const depositTierEl = document.getElementById('depositUserTier');
+    if (depositTierEl) depositTierEl.textContent = profile.depositTier;
+
+    const depositPill1 = document.getElementById('depositTierRangePill1');
+    if (depositPill1) depositPill1.textContent = profile.depositRangePill1;
+
+    const depositPill2 = document.getElementById('depositTierRangePill2');
+    if (depositPill2) depositPill2.textContent = profile.depositRangePill2;
+
+    const depositNoteEl = document.getElementById('depositRoutingNote');
+    if (depositNoteEl) depositNoteEl.innerHTML = profile.depositRouting;
+
+    const withdrawBenEl = document.getElementById('withdrawBeneficiary');
+    if (withdrawBenEl) withdrawBenEl.textContent = profile.withdrawBeneficiary;
+
+    const withdrawLockedEl = document.getElementById('withdrawLockedCapital');
+    if (withdrawLockedEl) withdrawLockedEl.textContent = profile.withdrawLocked;
+
+    const withdrawExpEl = document.getElementById('withdrawLockExpiry');
+    if (withdrawExpEl) withdrawExpEl.textContent = profile.withdrawExpiry;
+
+    const withdrawTitleEl = document.getElementById('withdrawBannerTitle');
+    if (withdrawTitleEl) withdrawTitleEl.textContent = profile.withdrawBannerTitle;
+
+    const withdrawTextEl = document.getElementById('withdrawBannerText');
+    if (withdrawTextEl) withdrawTextEl.innerHTML = profile.withdrawBannerText;
+
+    // Re-render dashboard overview & tables
+    updateDashboardWithMarketData();
+
+    if (ChartEngine.canvas) {
+      ChartEngine.generateData(STATE.chartRange);
+      ChartEngine.render();
+    }
+  }
+
+  // --- Client Authentication & Security Engine ---
+  const AuthEngine = {
+    init() {
+      const authScreen = document.getElementById('authScreen');
+      const dashboardApp = document.getElementById('dashboardApp');
+      const loginForm = document.getElementById('loginForm');
+      const usernameInput = document.getElementById('loginUsername');
+      const passwordInput = document.getElementById('loginPassword');
+      const usernameWrapper = document.getElementById('usernameInputWrapper');
+      const passwordWrapper = document.getElementById('passwordInputWrapper');
+      const usernameReqPill = document.getElementById('usernameReqPill');
+      const passwordReqPill = document.getElementById('passwordReqPill');
+      const errorBanner = document.getElementById('authErrorBanner');
+      const errorMessage = document.getElementById('authErrorMessage');
+      const submitBtn = document.getElementById('btnAuthSubmit');
+      const btnSpinner = document.getElementById('authBtnSpinner');
+      const btnIcon = document.getElementById('authBtnIcon');
+      const btnText = document.getElementById('authBtnText');
+      const togglePwdBtn = document.getElementById('btnTogglePassword');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      function showError(msg) {
+        if (!errorBanner || !errorMessage) return;
+        errorMessage.textContent = msg;
+        errorBanner.style.display = 'flex';
+        errorBanner.classList.remove('auth-shake');
+        void errorBanner.offsetWidth; // Trigger reflow for animation
+        errorBanner.classList.add('auth-shake');
+      }
+
+      function hideError() {
+        if (errorBanner) errorBanner.style.display = 'none';
+        if (usernameWrapper) usernameWrapper.classList.remove('input-error');
+        if (passwordWrapper) passwordWrapper.classList.remove('input-error');
+      }
+
+      function updateUsernamePill() {
+        if (!usernameInput || !usernameReqPill) return;
+        const val = usernameInput.value.trim();
+        if (val.length >= 8) {
+          usernameReqPill.className = 'auth-req-pill valid';
+          usernameReqPill.textContent = '✓ ' + val.length + ' chars';
+          if (usernameWrapper) usernameWrapper.classList.add('input-valid');
+        } else if (val.length > 0) {
+          usernameReqPill.className = 'auth-req-pill invalid';
+          usernameReqPill.textContent = val.length + '/8 chars';
+          if (usernameWrapper) usernameWrapper.classList.remove('input-valid');
+        } else {
+          usernameReqPill.className = 'auth-req-pill';
+          usernameReqPill.textContent = 'Min 8 chars';
+          if (usernameWrapper) usernameWrapper.classList.remove('input-valid');
+        }
+      }
+
+      function updatePasswordPill() {
+        if (!passwordInput || !passwordReqPill) return;
+        const val = passwordInput.value;
+        if (val.length >= 8) {
+          passwordReqPill.className = 'auth-req-pill valid';
+          passwordReqPill.textContent = '✓ ' + val.length + ' chars';
+          if (passwordWrapper) passwordWrapper.classList.add('input-valid');
+        } else if (val.length > 0) {
+          passwordReqPill.className = 'auth-req-pill invalid';
+          passwordReqPill.textContent = val.length + '/8 chars';
+          if (passwordWrapper) passwordWrapper.classList.remove('input-valid');
+        } else {
+          passwordReqPill.className = 'auth-req-pill';
+          passwordReqPill.textContent = 'Min 8 chars';
+          if (passwordWrapper) passwordWrapper.classList.remove('input-valid');
+        }
+      }
+
+      if (usernameInput) {
+        usernameInput.addEventListener('input', () => {
+          hideError();
+          updateUsernamePill();
+        });
+      }
+
+      if (passwordInput) {
+        passwordInput.addEventListener('input', () => {
+          hideError();
+          updatePasswordPill();
+        });
+      }
+
+      if (togglePwdBtn && passwordInput) {
+        togglePwdBtn.addEventListener('click', () => {
+          const isPwd = passwordInput.getAttribute('type') === 'password';
+          passwordInput.setAttribute('type', isPwd ? 'text' : 'password');
+          const eyeSvg = document.getElementById('pwdEyeSvg');
+          if (eyeSvg) {
+            eyeSvg.innerHTML = isPwd
+              ? `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>`
+              : `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>`;
+          }
+        });
+      }
+
+
+      function authenticate(username, password) {
+        const u = (username || '').trim();
+        const p = password || '';
+
+        // Validation 1: Username min 8 chars
+        if (u.length < 8) {
+          if (usernameWrapper) usernameWrapper.classList.add('input-error');
+          showError('Username must be at least 8 characters long.');
+          return false;
+        }
+
+        // Validation 2: Password min 8 chars
+        if (p.length < 8) {
+          if (passwordWrapper) passwordWrapper.classList.add('input-error');
+          showError('Password must be at least 8 characters long.');
+          return false;
+        }
+
+        // Validation 3: Match registered institutional credentials
+        const profile = Object.values(USER_PROFILES).find(prof => prof.username === u && prof.password === p);
+
+        if (!profile) {
+          if (usernameWrapper) usernameWrapper.classList.add('input-error');
+          if (passwordWrapper) passwordWrapper.classList.add('input-error');
+          showError('Invalid credentials. Please verify your client username and institutional passkey.');
+          return false;
+        }
+
+        // Successful authentication
+        if (submitBtn) submitBtn.disabled = true;
+        if (btnSpinner) btnSpinner.style.display = 'inline-block';
+        if (btnIcon) btnIcon.style.display = 'none';
+        if (btnText) btnText.textContent = 'Unlocking Vault...';
+
+        setTimeout(() => {
+          sessionStorage.setItem('apex_auth_user', profile.username);
+          applyUserProfile(profile);
+
+          if (authScreen) authScreen.style.display = 'none';
+          if (dashboardApp) {
+            dashboardApp.style.display = 'flex';
+          }
+
+          if (submitBtn) submitBtn.disabled = false;
+          if (btnSpinner) btnSpinner.style.display = 'none';
+          if (btnIcon) btnIcon.style.display = 'inline-block';
+          if (btnText) btnText.textContent = 'Unlock Custody Vault';
+
+          // Render chart cleanly in visible view
+          setTimeout(() => {
+            if (ChartEngine.canvas) {
+              ChartEngine.render();
+            }
+          }, 60);
+        }, 350);
+
+        return true;
+      }
+
+      if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          authenticate(usernameInput ? usernameInput.value : '', passwordInput ? passwordInput.value : '');
+        });
+      }
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          sessionStorage.removeItem('apex_auth_user');
+          if (dashboardApp) dashboardApp.style.display = 'none';
+          if (authScreen) authScreen.style.display = 'flex';
+          if (loginForm) loginForm.reset();
+          hideError();
+          updateUsernamePill();
+          updatePasswordPill();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // Check existing authenticated session
+      const savedUser = sessionStorage.getItem('apex_auth_user');
+      if (savedUser && USER_PROFILES[savedUser]) {
+        applyUserProfile(USER_PROFILES[savedUser]);
+        if (authScreen) authScreen.style.display = 'none';
+        if (dashboardApp) dashboardApp.style.display = 'flex';
+      } else {
+        if (authScreen) authScreen.style.display = 'flex';
+        if (dashboardApp) dashboardApp.style.display = 'none';
+      }
+    }
+  };
+
   // --- Global Helper for In-Table Action Buttons ---
   window.ApexApp = {
     openQuickTrade(coinId, symbol) {
@@ -1243,8 +1724,11 @@
 
   // --- Initialization on DOM Ready ---
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('[Apex Wealth] Initializing institutional dashboard for Pablo Rindt ($128,000.00)...');
-    
+    console.log('[Apex Wealth] Initializing institutional multi-client portal...');
+
+    // Initialize authentication engine
+    AuthEngine.init();
+
     // Initialize chart
     ChartEngine.init();
 
